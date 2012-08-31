@@ -6,7 +6,7 @@ making local Ajax request to remote sites.
 
 just add gem to Gemfile:
 
-  gem 'proxy_request'
+  	gem 'proxy_request'
 
 and in routes.rb, use new helper *proxy_request* to proxy request to
 other url
