@@ -2,11 +2,16 @@
 
 require 'httpclient'
 
-def _proxy_request(env,path,args = {})
+def _proxy_request(env,path,args)
+
+
+  args = {
+    :csrf => true 
+  }.merge(args)
 
   req = ActionDispatch::Request.new(env)
 
-  if not args[:skip_csrf] and env['rack.session']['_csrf_token'] != req.headers["X-CSRF-Token"]
+  if args[:csrf] and env['rack.session']['_csrf_token'] != req.headers["X-CSRF-Token"]
     return [
       403,
       {'Content-Type' => 'text/html', 'Content-Length' => '3'},
@@ -35,7 +40,8 @@ def _proxy_request(env,path,args = {})
   [
     @response.status,
     {
-      'Content-Type' => @response.header.contenttype
+      'Content-Type' => @response.header.contenttype,
+      'X-Proxy-Runtime' => (elapsed_time/1000.0).to_s
     },
     [@response.body.content]
   ]
