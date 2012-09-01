@@ -17,3 +17,11 @@ other url
 match 'proxy/*all' => proxy_request('http://other.api.com/%{all}')
 ```
 
+proxy_request by default validates CSRF protection for every http method ( GET, POST ... ).
+
+To disable it just set ```:csrf``` option to ```false```
+
+```ruby
+match 'api/*all' => proxy_request('http://other.api.com/%{all}', :csrf => false )
+```
+
