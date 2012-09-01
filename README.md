@@ -31,3 +31,6 @@ To disable it just set ```:csrf``` option to ```false```
 match 'api/*all' => proxy_request('http://other.api.com/%{all}', :csrf => false )
 ```
 
+##### Copyright
+
+Kamil Załęski, http://kamilzaleski.com
